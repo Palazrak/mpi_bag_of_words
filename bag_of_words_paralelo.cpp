@@ -105,9 +105,6 @@ int main(int argc, char** argv) {
 
     contar_palabras(archivo_actual, dict, bolsa_local, vocab_size);
 
-    double t_end = MPI_Wtime();
-    double t_total = t_end - t_start;
-
     // El maestro reúne todas las bolsas
     int* bolsa_total = nullptr;
     if (process_id == MASTER) {
@@ -121,6 +118,8 @@ int main(int argc, char** argv) {
     // El maestro guarda el CSV
     if (process_id == MASTER) {
         guardar_csv("bolsa_paralelo.csv", bolsa_total, num_processes, vocab_size, dict);
+        double t_end = MPI_Wtime();
+        double t_total = t_end - t_start;
         cout << "Tiempo total (MPI_Wtime): " << t_total << " segundos\n";
     }
 
