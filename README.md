@@ -20,3 +20,10 @@ En este repositorio se encuentran los archivos que contienen las versiones seria
 - **Sistema operativo**: Subsistema de Linux (WSL2) con Ubuntu 22.04.5 LTS
 - **Entorno de desarrollo**: Visual Studio Code, utilizando la extensión oficial de C/C++ de Microsoft
 
+### Version serial
+
+La version serial crea una bolsa de palabras (internamente es un diccionario) para cada uno de los libros analizados de forma secuencial, y posteriormente guarda dichas bolsas en un `.csv`.
+
+### Estrategia de paralelización
+
+Se va a dedicar un proceso por cada libro, y al terminar de ejecutar, el master ejecuta un "gather" para juntar la informacion en un mismo `.csv`.
