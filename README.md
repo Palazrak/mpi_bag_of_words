@@ -27,3 +27,7 @@ La version serial crea una bolsa de palabras (internamente es un diccionario) pa
 ### Estrategia de paralelización
 
 Se va a dedicar un proceso por cada libro, y al terminar de ejecutar, el master ejecuta un "gather" para juntar la informacion en un mismo `.csv`.
+
+### Cronómetros
+
+Ambos cronometros inician al principio del main y se detienen al terminar de guardar el `.csv` resultante.

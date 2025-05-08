@@ -80,6 +80,8 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &process_id);
     MPI_Get_processor_name(host_name, &name_length);
 
+    double t_start = MPI_Wtime();
+
     if (argc < num_processes + 3) {
         if (process_id == MASTER) {
             cout << "Uso: mpirun -np <N> ./bag_of_words_paralelo archivo1.txt ... archivoN.txt vocab.txt <tamaño_vocab>\n";
@@ -101,7 +103,6 @@ int main(int argc, char** argv) {
     for (int i = 0; i < vocab_size; i++) bolsa_local[i] = 0;
 
     MPI_Barrier(MPI_COMM_WORLD); // sincronización antes del conteo
-    double t_start = MPI_Wtime();
 
     contar_palabras(archivo_actual, dict, bolsa_local, vocab_size);
 
