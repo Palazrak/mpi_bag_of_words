@@ -71,6 +71,8 @@ void guardar_csv(const string& nombre_archivo, int* bolsa_total, int num_docs, i
 //-------------------------------------------------------------
 // 4. Main
 int main(int argc, char** argv) {
+
+    // Inicializamos el entorno de MPI
     const int MASTER = 0;
     int num_processes, process_id, name_length;
     char host_name[MPI_MAX_PROCESSOR_NAME];
@@ -80,15 +82,7 @@ int main(int argc, char** argv) {
     MPI_Comm_rank(MPI_COMM_WORLD, &process_id);
     MPI_Get_processor_name(host_name, &name_length);
 
-    double t_start = MPI_Wtime();
-
-    if (argc < num_processes + 3) {
-        if (process_id == MASTER) {
-            cout << "Uso: mpirun -np <N> ./bag_of_words_paralelo archivo1.txt ... archivoN.txt vocab.txt <tamaño_vocab>\n";
-        }
-        MPI_Finalize();
-        return 1;
-    }
+    double t_start = MPI_Wtime(); // Inicia contador
 
     string vocab_file = argv[argc - 2];
     int vocab_size = atoi(argv[argc - 1]);
@@ -98,7 +92,7 @@ int main(int argc, char** argv) {
 
     string archivo_actual = argv[1 + process_id];
 
-    // 2. Crear matriz bolsa de palabras e inicializar en cero
+    // 2. Crear matriz bolsa de palabras locales e inicializar en cero
     int* bolsa_local = new int[vocab_size];
     for (int i = 0; i < vocab_size; i++) bolsa_local[i] = 0;
 
