@@ -104,12 +104,12 @@ int main(int argc, char** argv) {
         count_words(archivos[i], word_dict, bolsa, i);
     }
 
-    // 4. Guardar CSV
-    save_to_CSV("bolsa_serial.csv", bolsa, vocab_size, num_docs, word_dict);
-
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
     cout << "tiempo: " << (float)duration.count() / 1e6 << "\n";
+
+    // 4. Guardar CSV
+    save_to_CSV("bolsa_serial.csv", bolsa, vocab_size, num_docs, word_dict);
 
     // 5. Liberar memoria
     for(int i = 0; i < num_docs; i++){
